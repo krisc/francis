@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="UTF-8"><title>francis</title><script type="text/javascript" src="/home/kris/.cabal/share/x86_64-linux-ghc-7.8.3/Elm-0.13/elm-runtime.js"></script><script type="text/javascript">Elm.GameSkeleton = Elm.GameSkeleton || {};
+Elm.GameSkeleton.make = function (_elm) {
+   "use strict";
+   _elm.GameSkeleton = _elm.GameSkeleton || {};
+   if (_elm.GameSkeleton.values)
+   return _elm.GameSkeleton.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "GameSkeleton",
+   $Basics = Elm.Basics.make(_elm),
+   $Color = Elm.Color.make(_elm),
+   $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Mouse = Elm.Mouse.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Time = Elm.Time.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var delta = $Time.fps(35);
+   var make = F2(function (obj,
+   shape) {
+      return $Graphics$Collage.move({ctor: "_Tuple2"
+                                    ,_0: obj.x
+                                    ,_1: obj.y})($Graphics$Collage.filled($Color.brown)(shape));
+   });
+   var bgColor = A3($Color.rgb,
+   200,
+   200,
+   200);
+   var near = F3(function (n,c,m) {
+      return _U.cmp(m,
+      n - c) > -1 && _U.cmp(m,
+      n + c) < 1;
+   });
+   var within = F2(function (player,
+   beard) {
+      return A2(near,
+      beard.x,
+      15)(player.x) && A2(near,
+      beard.y,
+      15)(player.y);
+   });
+   var stepBeard = F3(function (timeDelta,
+   player,
+   beard) {
+      return _U.replace([["shaven"
+                         ,A2(within,
+                         player,
+                         beard) ? true : beard.shaven]
+                        ,["y"
+                         ,beard.shaven ? beard.y - 10 : beard.y]],
+      beard);
+   });
+   var GameState = F7(function (a,
+   b,
+   c,
+   d,
+   e,
+   f,
+   g) {
+      return {_: {}
+             ,beard1: b
+             ,beard2: c
+             ,beard3: d
+             ,beard4: e
+             ,beard5: f
+             ,beard6: g
+             ,player1: a};
+   });
+   var beard = function (_v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple3": return {_: {}
+                                 ,shaven: _v0._2
+                                 ,x: _v0._0
+                                 ,y: _v0._1};}
+         _E.Case($moduleName,
+         "on line 52, column 26 to 49");
+      }();
+   };
+   var Beard = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,shaven: c
+             ,x: a
+             ,y: b};
+   });
+   var player = function (_v5) {
+      return function () {
+         switch (_v5.ctor)
+         {case "_Tuple2": return {_: {}
+                                 ,x: _v5._0
+                                 ,y: _v5._1};}
+         _E.Case($moduleName,
+         "on line 48, column 19 to 27");
+      }();
+   };
+   var Player = F2(function (a,b) {
+      return {_: {},x: a,y: b};
+   });
+   var $ = {ctor: "_Tuple2"
+           ,_0: 600
+           ,_1: 400},
+   gameWidth = $._0,
+   gameHeight = $._1;
+   var $ = {ctor: "_Tuple2"
+           ,_0: gameWidth / 2
+           ,_1: gameHeight / 2},
+   halfWidth = $._0,
+   halfHeight = $._1;
+   var defaultGame = {_: {}
+                     ,beard1: beard({ctor: "_Tuple3"
+                                    ,_0: 0.0
+                                    ,_1: 0.0
+                                    ,_2: false})
+                     ,beard2: beard({ctor: "_Tuple3"
+                                    ,_0: 30.0
+                                    ,_1: 0.0
+                                    ,_2: false})
+                     ,beard3: beard({ctor: "_Tuple3"
+                                    ,_0: 60.0
+                                    ,_1: 0.0
+                                    ,_2: false})
+                     ,beard4: beard({ctor: "_Tuple3"
+                                    ,_0: 0.0
+                                    ,_1: 30.0
+                                    ,_2: false})
+                     ,beard5: beard({ctor: "_Tuple3"
+                                    ,_0: 30.0
+                                    ,_1: 30.0
+                                    ,_2: false})
+                     ,beard6: beard({ctor: "_Tuple3"
+                                    ,_0: 60.0
+                                    ,_1: 30.0
+                                    ,_2: false})
+                     ,player1: player({ctor: "_Tuple2"
+                                      ,_0: 0.0 - halfWidth
+                                      ,_1: 0.0 - halfHeight})};
+   var stepPlyr = F2(function (_v9,
+   player) {
+      return function () {
+         switch (_v9.ctor)
+         {case "_Tuple2":
+            return _U.replace([["x"
+                               ,$Basics.toFloat(_v9._0) - halfWidth]
+                              ,["y"
+                               ,$Basics.toFloat(0 - _v9._1) + halfHeight]],
+              player);}
+         _E.Case($moduleName,
+         "between lines 88 and 89");
+      }();
+   });
+   var stepGame = F2(function (_v13,
+   game) {
+      return function () {
+         return _U.replace([["player1"
+                            ,A2(stepPlyr,
+                            _v13.userInput.mp,
+                            game.player1)]
+                           ,["beard1"
+                            ,A3(stepBeard,
+                            _v13.timeDelta,
+                            game.player1,
+                            game.beard1)]
+                           ,["beard2"
+                            ,A3(stepBeard,
+                            _v13.timeDelta,
+                            game.player1,
+                            game.beard2)]
+                           ,["beard3"
+                            ,A3(stepBeard,
+                            _v13.timeDelta,
+                            game.player1,
+                            game.beard3)]
+                           ,["beard4"
+                            ,A3(stepBeard,
+                            _v13.timeDelta,
+                            game.player1,
+                            game.beard4)]
+                           ,["beard5"
+                            ,A3(stepBeard,
+                            _v13.timeDelta,
+                            game.player1,
+                            game.beard5)]
+                           ,["beard6"
+                            ,A3(stepBeard,
+                            _v13.timeDelta,
+                            game.player1,
+                            game.beard6)]],
+         game);
+      }();
+   });
+   var display = F2(function (_v15,
+   _v16) {
+      return function () {
+         return function () {
+            switch (_v15.ctor)
+            {case "_Tuple2":
+               return A3($Graphics$Element.container,
+                 _v15._0,
+                 _v15._1,
+                 $Graphics$Element.topLeft)(A3($Graphics$Collage.collage,
+                 gameWidth,
+                 gameHeight,
+                 _L.fromArray([$Graphics$Collage.filled(bgColor)(A2($Graphics$Collage.rect,
+                              gameWidth,
+                              gameHeight))
+                              ,make(_v16.beard1)(A2($Graphics$Collage.oval,
+                              30,
+                              30))
+                              ,make(_v16.beard2)(A2($Graphics$Collage.oval,
+                              30,
+                              30))
+                              ,make(_v16.beard3)(A2($Graphics$Collage.oval,
+                              30,
+                              30))
+                              ,make(_v16.beard4)(A2($Graphics$Collage.oval,
+                              30,
+                              30))
+                              ,make(_v16.beard5)(A2($Graphics$Collage.oval,
+                              30,
+                              30))
+                              ,make(_v16.beard6)(A2($Graphics$Collage.oval,
+                              30,
+                              30))
+                              ,make(_v16.player1)(A2($Graphics$Collage.oval,
+                              15,
+                              15))])));}
+            _E.Case($moduleName,
+            "between lines 128 and 137");
+         }();
+      }();
+   });
+   var Input = F2(function (a,b) {
+      return {_: {}
+             ,timeDelta: a
+             ,userInput: b};
+   });
+   var UserInput = function (a) {
+      return {_: {},mp: a};
+   };
+   var userInput = A2($Signal._op["<~"],
+   UserInput,
+   $Mouse.position);
+   var input = A2($Signal.sampleOn,
+   delta,
+   A3($Signal.lift2,
+   Input,
+   delta,
+   userInput));
+   var gameState = A3($Signal.foldp,
+   stepGame,
+   defaultGame,
+   input);
+   var main = A3($Signal.lift2,
+   display,
+   $Window.dimensions,
+   gameState);
+   _elm.GameSkeleton.values = {_op: _op
+                              ,UserInput: UserInput
+                              ,userInput: userInput
+                              ,Input: Input
+                              ,gameHeight: gameHeight
+                              ,gameWidth: gameWidth
+                              ,halfHeight: halfHeight
+                              ,halfWidth: halfWidth
+                              ,Player: Player
+                              ,player: player
+                              ,Beard: Beard
+                              ,beard: beard
+                              ,GameState: GameState
+                              ,defaultGame: defaultGame
+                              ,near: near
+                              ,within: within
+                              ,stepPlyr: stepPlyr
+                              ,stepBeard: stepBeard
+                              ,stepGame: stepGame
+                              ,bgColor: bgColor
+                              ,make: make
+                              ,display: display
+                              ,delta: delta
+                              ,input: input
+                              ,gameState: gameState
+                              ,main: main};
+   return _elm.GameSkeleton.values;
+};</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.GameSkeleton)</script><noscript></noscript></body></html>
